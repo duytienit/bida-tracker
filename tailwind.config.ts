@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,15 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Pool-themed colors
+				pool: {
+					blue: '#1e3a8a',
+					green: '#065f46',
+					red: '#991b1b',
+					player1: '#1e40af',
+					player2: '#b91c1c',
+					felt: '#0c4a6e'
 				}
 			},
 			borderRadius: {
