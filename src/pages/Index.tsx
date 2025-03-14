@@ -15,15 +15,23 @@ const MatchDashboard: React.FC = () => {
         <p className="text-gray-600">Track your pool games with ease</p>
       </header>
       
-      <div className="grid gap-8 md:grid-cols-[1fr_auto] lg:grid-cols-[2fr_1fr]">
-        <div>
-          {currentMatch ? <Scoreboard /> : <NewMatchForm />}
+      {currentMatch ? (
+        <div className="flex justify-center">
+          <div className="w-full max-w-4xl">
+            <Scoreboard />
+          </div>
         </div>
-        
-        <div>
-          <MatchHistory />
+      ) : (
+        <div className="grid gap-8 md:grid-cols-[1fr_auto] lg:grid-cols-[2fr_1fr]">
+          <div>
+            <NewMatchForm />
+          </div>
+          
+          <div>
+            <MatchHistory />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

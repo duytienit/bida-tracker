@@ -22,8 +22,8 @@ const NewMatchForm: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     createNewMatch(
-      player1.trim(), 
-      player2.trim(), 
+      player1.trim() || 'Player 1', 
+      player2.trim() || 'Player 2', 
       parseInt(raceTo, 10) || 7
     );
   };
@@ -35,22 +35,23 @@ const NewMatchForm: React.FC = () => {
       </CardHeader>
       <CardContent className="pt-6">
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-6 md:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="player1">Player 1</Label>
+              <Label htmlFor="player1" className="text-center block">Blue Player</Label>
               <Input
                 id="player1"
-                placeholder="Enter name"
+                placeholder="Enter blue player name"
                 value={player1}
                 onChange={(e) => setPlayer1(e.target.value)}
                 className="bg-blue-50 border-blue-200 focus:border-pool-player1"
               />
             </div>
+            
             <div className="space-y-2">
-              <Label htmlFor="player2">Player 2</Label>
+              <Label htmlFor="player2" className="text-center block">Red Player</Label>
               <Input
                 id="player2"
-                placeholder="Enter name"
+                placeholder="Enter red player name"
                 value={player2}
                 onChange={(e) => setPlayer2(e.target.value)}
                 className="bg-red-50 border-red-200 focus:border-pool-player2"
@@ -58,13 +59,13 @@ const NewMatchForm: React.FC = () => {
             </div>
           </div>
           
-          <div className="space-y-2">
-            <Label htmlFor="raceTo">Race to</Label>
+          <div className="space-y-2 max-w-xs mx-auto">
+            <Label htmlFor="raceTo" className="text-center block">Race to</Label>
             <Select 
               value={raceTo} 
               onValueChange={setRaceTo}
             >
-              <SelectTrigger className="w-full">
+              <SelectTrigger className="w-full text-center">
                 <SelectValue placeholder="Select race to" />
               </SelectTrigger>
               <SelectContent>

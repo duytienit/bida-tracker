@@ -16,6 +16,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { toast } from 'sonner';
+import { createFishEffect } from '@/utils/animationUtils';
 
 const Scoreboard: React.FC = () => {
   const { 
@@ -37,6 +38,14 @@ const Scoreboard: React.FC = () => {
     if (currentMatch) {
       setPlayer1Name(currentMatch.player1.name);
       setPlayer2Name(currentMatch.player2.name);
+      
+      // Auto fullscreen on match start
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+          console.error(`Error attempting to enable fullscreen: ${err.message}`);
+        });
+        setIsFullscreen(true);
+      }
     }
   }, [currentMatch]);
   
@@ -77,6 +86,16 @@ const Scoreboard: React.FC = () => {
   const handlePlayer2NameSave = () => {
     updatePlayerName(currentMatch.player2.id, player2Name);
     setEditingPlayer2(false);
+  };
+  
+  const handleIncrementScore = (playerId: string) => {
+    createFishEffect('increment');
+    incrementScore(playerId);
+  };
+  
+  const handleDecrementScore = (playerId: string) => {
+    createFishEffect('decrement');
+    decrementScore(playerId);
   };
   
   const player1IsWinner = currentMatch.winner === currentMatch.player1.id;
@@ -139,7 +158,7 @@ const Scoreboard: React.FC = () => {
               
               <div className="flex space-x-3">
                 <Button
-                  onClick={() => decrementScore(currentMatch.player1.id)}
+                  onClick={() => handleDecrementScore(currentMatch.player1.id)}
                   className="bg-blue-700 hover:bg-blue-800 h-14 w-14 rounded-full"
                   disabled={currentMatch.completed || currentMatch.player1.score <= 0}
                 >
@@ -147,7 +166,7 @@ const Scoreboard: React.FC = () => {
                 </Button>
                 
                 <Button
-                  onClick={() => incrementScore(currentMatch.player1.id)}
+                  onClick={() => handleIncrementScore(currentMatch.player1.id)}
                   className="bg-blue-600 hover:bg-blue-700 h-14 w-14 rounded-full"
                   disabled={currentMatch.completed}
                 >
@@ -201,7 +220,7 @@ const Scoreboard: React.FC = () => {
               
               <div className="flex space-x-3">
                 <Button
-                  onClick={() => decrementScore(currentMatch.player2.id)}
+                  onClick={() => handleDecrementScore(currentMatch.player2.id)}
                   className="bg-red-700 hover:bg-red-800 h-14 w-14 rounded-full"
                   disabled={currentMatch.completed || currentMatch.player2.score <= 0}
                 >
@@ -209,7 +228,7 @@ const Scoreboard: React.FC = () => {
                 </Button>
                 
                 <Button
-                  onClick={() => incrementScore(currentMatch.player2.id)}
+                  onClick={() => handleIncrementScore(currentMatch.player2.id)}
                   className="bg-red-600 hover:bg-red-700 h-14 w-14 rounded-full"
                   disabled={currentMatch.completed}
                 >
